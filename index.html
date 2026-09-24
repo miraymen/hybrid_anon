@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HybridAvatar &mdash; ICLR 2027 Submission</title>
+
+  <script>
+    (function() {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.24/dist/css/bulma-carousel.min.css">
+
+<style>
+* { font-family: 'Noto Sans', sans-serif; }
+
+.publication-title { font-size: 2.4rem !important; font-weight: 800; line-height: 1.2; }
+@media screen and (max-width: 768px) { .publication-title { font-size: 1.6rem !important; } }
+
+/* Video cards */
+.video-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.video-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+.video-card video, .video-card img {
+  width: 100%;
+  display: block;
+}
+
+/* Abstract */
+.abstract-text {
+  font-size: 1.02rem;
+  line-height: 1.85;
+}
+
+/* Section divider */
+.section-divider {
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #3273dc, #667eea);
+  border-radius: 2px;
+  margin: 0 auto 2rem;
+}
+
+/* Contributions list */
+.contributions-list {
+  max-width: 850px;
+  margin: 0 auto;
+}
+.contribution-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.contribution-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+.contribution-number {
+  font-weight: 700;
+  font-size: 1.05rem;
+  background: var(--accent);
+  color: #fff !important;
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.contribution-text {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: #444;
+}
+.contribution-text strong { color: #222; }
+
+/* Method image wrapper */
+.method-image-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.method-image-wrapper img {
+  width: 100%;
+  display: block;
+}
+
+/* Video grid */
+.scenes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* Teaser wrapper */
+.teaser-wrapper {
+  max-width: none;
+  margin: 0 auto 1.5rem;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+}
+.teaser-wrapper img {
+  width: 100%;
+  display: block;
+}
+
+/* Venue badge */
+.venue-line { margin: 0.75rem 0 0.35rem; }
+.venue-badge {
+  font-weight: 600; font-size: 0.82rem; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #2160c4;
+  background: rgba(50, 115, 220, 0.09);
+  border: 1px solid rgba(50, 115, 220, 0.28);
+  padding: 5px 15px; border-radius: 999px;
+}
+html[data-theme="dark"] .venue-badge { color: #8fb8ff; background: rgba(88,166,255,0.12); border-color: rgba(88,166,255,0.30); }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .venue-badge { color: #8fb8ff; background: rgba(88,166,255,0.12); border-color: rgba(88,166,255,0.30); }
+}
+.paper-id-line { color: var(--muted); font-size: 0.95rem; margin-top: 0.5rem; letter-spacing: 0.5px; }
+
+/* Theme variables */
+:root {
+  --page-bg: #f3f5f7; --card-bg: #ffffff; --card-border: #e8ecf1;
+  --card-shadow: 0 1px 2px rgba(16,24,40,0.05), 0 6px 18px rgba(16,24,40,0.07);
+  --text: #444; --heading: #1a1a1a; --muted: #888;
+  --accent: #3273dc; --pre-bg: #f6f8fa; --pre-text: #3a3f47;
+}
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) {
+    --page-bg: #1b1c25; --card-bg: #262837; --card-border: #343649;
+    --card-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    --text: #dadbdf; --heading: #e8e8e8; --muted: #a6a7ad;
+    --accent: #58a6ff; --pre-bg: #1e1f29; --pre-text: #c8cad2;
+  }
+}
+html[data-theme="dark"] {
+  --page-bg: #1b1c25; --card-bg: #262837; --card-border: #343649;
+  --card-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  --text: #dadbdf; --heading: #e8e8e8; --muted: #a6a7ad;
+  --accent: #58a6ff; --pre-bg: #1e1f29; --pre-text: #c8cad2;
+}
+
+/* Lifted cards */
+html, body { background: var(--page-bg) !important; }
+body { color: var(--text); transition: background .25s ease, color .25s ease; }
+.hero.is-light { background: transparent !important; }
+.section { padding: 1.4rem 1rem; }
+.hero-body { padding: 1.4rem 1rem; }
+.section > .container,
+.hero-body > .container {
+  max-width: 1200px !important;
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  padding: 2.25rem 2.5rem;
+  transition: background .25s ease, border-color .25s ease;
+}
+
+/* Text theming */
+.title { color: var(--heading) !important; }
+.subtitle, .content { color: var(--text); }
+.hero .subtitle { color: var(--text) !important; }
+strong { color: var(--heading); }
+.abstract-text { color: var(--text) !important; }
+.video-card { background: var(--card-bg); }
+.contribution-item { background: var(--pre-bg); }
+.contribution-text { color: var(--text); }
+.contribution-text strong { color: var(--heading); }
+.contribution-number { color: #fff; }
+.content pre { background: var(--pre-bg); color: var(--pre-text); }
+footer.footer { background: transparent !important; }
+html[data-theme="dark"] [style*="color: #999"],
+html[data-theme="dark"] [style*="color: #888"],
+html[data-theme="dark"] [style*="color: #666"],
+html[data-theme="dark"] [style*="color: #555"],
+html[data-theme="dark"] [style*="color: #444"],
+html[data-theme="dark"] [style*="color: #333"] { color: var(--muted) !important; }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) [style*="color: #999"],
+  html:not([data-theme="light"]) [style*="color: #888"],
+  html:not([data-theme="light"]) [style*="color: #666"],
+  html:not([data-theme="light"]) [style*="color: #555"],
+  html:not([data-theme="light"]) [style*="color: #444"],
+  html:not([data-theme="light"]) [style*="color: #333"] { color: var(--muted) !important; }
+}
+.method-image-wrapper { background: #fff; }
+
+/* Polish */
+html { scroll-behavior: smooth; }
+::selection { background: rgba(50, 115, 220, 0.25); }
+.content pre { border: 1px solid var(--card-border); border-radius: 12px; }
+
+/* BibTeX copy */
+.bibtex-wrap { position: relative; }
+.bib-copy {
+  position: absolute; top: 12px; right: 12px;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.85rem; font-weight: 600;
+  color: var(--accent); background: var(--card-bg);
+  border: 1px solid var(--card-border); border-radius: 8px;
+  padding: 5px 11px; cursor: pointer; transition: all .15s ease;
+}
+.bib-copy:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.bib-copy.copied { background: #2aa775; border-color: #2aa775; color: #fff; }
+#copy-toast {
+  position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(20px);
+  background: #1a1a1a; color: #fff; padding: 10px 18px; border-radius: 999px;
+  font-size: 0.9rem;
+  opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .25s ease; z-index: 200;
+}
+#copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
+
+/* Theme toggle */
+#theme-toggle {
+  position: fixed; top: 16px; right: 16px; z-index: 100;
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid var(--card-border); background: var(--card-bg); color: var(--heading);
+  cursor: pointer; font-size: 1.05rem; box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+#theme-toggle:hover { transform: scale(1.08); }
+
+/* Comparison grid */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.comparison-grid .img-card {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.comparison-grid .img-card img {
+  width: 100%;
+  display: block;
+}
+.comparison-grid .img-label {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 0;
+  color: var(--muted);
+}
+.comparison-grid .img-label.ours-label { color: #2ecc71; font-weight: 700; }
+
+/* Ablation grid */
+.ablation-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+.ablation-grid .img-card {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.ablation-grid .img-card img {
+  width: 100%;
+  display: block;
+}
+.ablation-grid .img-label {
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 6px 0;
+  color: var(--muted);
+}
+.ablation-grid .img-label.ours-label { color: #2ecc71; font-weight: 700; }
+
+/* Placeholder */
+.placeholder-notice {
+  text-align: center;
+  font-style: italic;
+  color: var(--muted);
+  padding: 2rem;
+  border: 2px dashed var(--card-border);
+  border-radius: 12px;
+  margin: 1rem 0;
+}
+
+/* Carousel */
+.results-carousel { overflow: hidden; }
+.results-carousel .item { margin: 0; overflow: hidden; border-radius: 12px; padding: 0; font-size: 0; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); }
+.results-carousel video { margin: 0; width: 100%; display: block; }
+
+/* Comparison labels */
+.cmp-label { font-weight: 700; font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 0; text-align: center; }
+.cmp-ours { color: #2ecc71; }
+.cmp-base { color: var(--heading); }
+
+@media screen and (max-width: 768px) {
+  .section > .container, .hero-body > .container { padding: 1.5rem 1.1rem; }
+  .scenes-grid { grid-template-columns: 1fr; }
+  .comparison-grid { grid-template-columns: repeat(2, 1fr); }
+  .ablation-grid { grid-template-columns: repeat(2, 1fr); }
+  .contribution-item { padding: 1rem; }
+}
+</style>
+</head>
+
+<body>
+
+<button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">&#127769;</button>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-1 publication-title" style="margin-bottom: 0.5rem;">
+        HybridAvatar: Photoreal Animatable Humans as Mesh-Native Assets from Multi-View Cameras
+      </h1>
+      <div class="venue-line"><span class="venue-badge">ICLR 2027 Submission</span></div>
+      <p class="paper-id-line">Paper under double-blind review</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TEASER ==================== -->
+<section class="section" style="padding-top: 1.5rem; padding-bottom: 1.5rem;">
+  <div class="container is-max-widescreen">
+    <p class="has-text-centered" style="color: #e8590c; font-size: 1.3rem; font-weight: 600; margin-bottom: 1.5rem;">
+      One trained model, three rendering modes: 3DGS, mesh asset, and hybrid with physics and shadows.
+    </p>
+    <div class="teaser-wrapper">
+      <img src="./images/teaser.jpg" alt="HybridAvatar teaser: mesh-native avatar with physics, shadows, and relighting">
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ABSTRACT ==================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-2 has-text-centered section-title">Abstract</h2>
+    <div class="section-divider"></div>
+    <div class="content has-text-justified abstract-text">
+      <p>
+        Animatable human avatars are central to games, virtual production, telepresence, and AR/VR, and the dominant production format for these settings is a posed mesh with UV-mapped texture, normal, and displacement maps. Mesh-based avatars enjoy decades of engine support: physics, shadows and relighting all assume mesh geometry. Recent 3D Gaussian Splatting (3DGS) avatars deliver markedly higher rendering quality and can be reconstructed from multi-view captures with as few as 10&ndash;16 cameras, but their splat representation is incompatible with conventional graphics engines. We present a hybrid pipeline that bridges these two regimes. We train a pose-conditioned avatar with mesh-anchored Gaussian splatting from multi-view video, then, for every training pose, extract three asset maps (texture, normal, displacement) using a UV-space rasterization of the trained Gaussians. At inference time, geometry for a novel pose is produced by the trained network as a posed mesh, while appearance is produced by a pose-space mixture-of-Gaussians blend over the per-pose asset maps. The final output is a textured mesh asset that can be loaded directly into any engine and benefits from physics, dynamic shadows, and relighting, while being comparable in rendering quality to 3DGS avatars. The same model can also be rendered directly as Gaussians, and in a <em>hybrid mode</em>, it is rendered with Gaussians while its mesh, which shares their geometry, serves as a physics and shadow proxy. We evaluate the pipeline on multi-view human captures and show that it produces engine-ready assets whose photometric quality exceeds that of meshes extracted from 3DGS avatars and approaches that of direct renderings of animatable 3DGS avatars.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== AVATAR ANIMATION ==================== -->
+<section class="section hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <h2 class="title is-2 has-text-centered section-title">Animatable Mesh Avatars</h2>
+      <div class="section-divider"></div>
+      <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
+        Our pipeline produces mesh-native assets from multi-view captures. The exported avatar is a standard textured mesh that can be animated with novel poses and loaded into any graphics engine.
+      </p>
+      <div class="scenes-grid">
+        <div class="video-card">
+          <video autoplay controls muted loop playsinline>
+            <source src="./videos/avatrrex.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-card">
+          <video autoplay controls muted loop playsinline>
+            <source src="./videos/avatrrex2.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== RELIGHTING ==================== -->
+<section class="section">
+  <div class="container is-max-widescreen">
+    <h2 class="title is-2 has-text-centered section-title">Relighting and Shadows</h2>
+    <div class="section-divider"></div>
+    <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
+      Because the asset is an ordinary textured mesh, it receives scene lighting and casts dynamic shadows in a path-traced environment, something that 3DGS avatars cannot do.
+    </p>
+    <div class="video-card" style="max-width: 960px; margin: 0 auto;">
+      <video autoplay controls muted loop playsinline>
+        <source src="./videos/relight.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SHADOW / PHYSICS (placeholder) ==================== -->
+<section class="section hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <h2 class="title is-2 has-text-centered section-title">Physics and Contact</h2>
+      <div class="section-divider"></div>
+      <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
+        In hybrid mode, the mesh acts as a physics proxy while the avatar is rendered with Gaussians. The avatar casts shadows, deflects objects on contact, and receives scene lighting.
+      </p>
+      <div class="placeholder-notice">
+        Videos coming soon.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ActorsHQ (placeholder) ==================== -->
+<section class="section">
+  <div class="container is-max-widescreen">
+    <h2 class="title is-2 has-text-centered section-title">ActorsHQ Results</h2>
+    <div class="section-divider"></div>
+    <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
+      Results on ActorsHQ sequences captured with 160 cameras, demonstrating that the pipeline scales to high-camera-count light-stage setups.
+    </p>
+    <div class="placeholder-notice">
+      Videos coming soon.
+    </div>
+  </div>
+</section>
+
+<!-- ==================== METHOD ==================== -->
+<section class="section hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <h2 class="title is-2 has-text-centered section-title">Method</h2>
+      <div class="section-divider"></div>
+      <div class="method-image-wrapper" style="margin-bottom: 1.5rem;">
+        <img src="./images/method_figure.png" alt="Method overview">
+      </div>
+      <p class="has-text-justified" style="font-size: 1.05rem; color: #555; line-height: 1.7; margin-bottom: 2.5rem;">
+        <strong>Method overview.</strong> We train a pose-conditioned UV-space network that predicts both (i)&nbsp;a vertex residual for the mesh geometry and (ii)&nbsp;per-texel Gaussian attributes (opacity, color, scale, rotation) anchored to the mesh surface. At training time, the model is supervised through Gaussian splatting; once trained, we extract three asset maps (texture, normal, displacement) per pose via UV-space rasterization and blend them at inference with a pose-space mixture of Gaussians. The result is a standard textured mesh compatible with any graphics engine.
+      </p>
+      <div class="method-image-wrapper">
+        <img src="./images/anchor_figure.png" alt="Gaussian anchoring to mesh faces">
+      </div>
+      <p class="has-text-justified" style="font-size: 1.05rem; color: #555; line-height: 1.7;">
+        <strong>Mesh-anchored Gaussians.</strong> Each Gaussian is anchored to a mesh face via barycentric coordinates. This ensures that the Gaussian representation and the mesh share the same geometry, enabling hybrid rendering where Gaussians provide appearance while the mesh provides a valid physics and shadow proxy.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== QUALITATIVE COMPARISON ==================== -->
+<section class="section">
+  <div class="container is-max-widescreen">
+    <h2 class="title is-2 has-text-centered section-title">Visual Comparison of Mesh Assets</h2>
+    <div class="section-divider"></div>
+    <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
+      Held-out poses. Our mesh asset preserves pose-dependent wrinkles while AG-Mesh shows seams and blurred texture, and DeMapGS+LBS shows static wrinkles.
+    </p>
+
+    <div class="comparison-grid" style="margin-bottom: 1.5rem;">
+      <div>
+        <div class="img-card"><img src="./images/qual_r1_mesh.png" alt="AG-Mesh"></div>
+        <div class="img-label">AG-Mesh</div>
+      </div>
+      <div>
+        <div class="img-card"><img src="./images/qual_r1_demapgs.png" alt="DeMapGS+LBS"></div>
+        <div class="img-label">DeMapGS+LBS</div>
+      </div>
+      <div>
+        <div class="img-card"><img src="./images/qual_r1_ours.png" alt="Ours"></div>
+        <div class="img-label ours-label">Ours</div>
+      </div>
+      <div>
+        <div class="img-card"><img src="./images/qual_r1_gt.png" alt="Ground Truth"></div>
+        <div class="img-label">GT</div>
+      </div>
+    </div>
+
+    <div class="comparison-grid">
+      <div>
+        <div class="img-card"><img src="./images/qual_r2_mesh.png" alt="AG-Mesh"></div>
+        <div class="img-label">AG-Mesh</div>
+      </div>
+      <div>
+        <div class="img-card"><img src="./images/qual_r2_demapgs.png" alt="DeMapGS+LBS"></div>
+        <div class="img-label">DeMapGS+LBS</div>
+      </div>
+      <div>
+        <div class="img-card"><img src="./images/qual_r2_ours.png" alt="Ours"></div>
+        <div class="img-label ours-label">Ours</div>
+      </div>
+      <div>
+        <div class="img-card"><img src="./images/qual_r2_gt.png" alt="Ground Truth"></div>
+        <div class="img-label">GT</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ABLATION ==================== -->
+<section class="section hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <h2 class="title is-2 has-text-centered section-title">Ablation Study</h2>
+      <div class="section-divider"></div>
+      <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
+        Each column removes one component. Without the vertex residual (LBS only), garment folds are missing; with static asset maps, appearance no longer varies with pose.
+      </p>
+      <div class="ablation-grid">
+        <div>
+          <div class="img-card"><img src="./images/ablation_mlp_backbone.png" alt="MLP backbone"></div>
+          <div class="img-label">MLP backbone</div>
+        </div>
+        <div>
+          <div class="img-card"><img src="./images/ablation_lbs_only.png" alt="LBS only"></div>
+          <div class="img-label">LBS only</div>
+        </div>
+        <div>
+          <div class="img-card"><img src="./images/ablation_static_maps.png" alt="Static maps"></div>
+          <div class="img-label">Static asset maps</div>
+        </div>
+        <div>
+          <div class="img-card"><img src="./images/ablation_full.png" alt="Full (Ours)"></div>
+          <div class="img-label ours-label">Full (Ours)</div>
+        </div>
+        <div>
+          <div class="img-card"><img src="./images/ablation_gt.png" alt="Ground Truth"></div>
+          <div class="img-label">GT</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BASELINE COMPARISONS (placeholder) ==================== -->
+<section class="section">
+  <div class="container is-max-widescreen">
+    <h2 class="title is-2 has-text-centered section-title">Baseline Comparisons</h2>
+    <div class="section-divider"></div>
+    <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
+      Side-by-side video comparisons with AnimatableGaussians, AG-Mesh, and DeMapGS+LBS on novel poses.
+    </p>
+    <div class="placeholder-notice">
+      Videos coming soon.
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CONTRIBUTIONS ==================== -->
+<section class="section hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-2 has-text-centered section-title">Contributions</h2>
+      <div class="section-divider"></div>
+      <div class="contributions-list">
+        <div class="contribution-item"><div class="contribution-number">1</div><div class="contribution-text"><strong>Mesh-anchored Gaussian avatar</strong> trained with a pose-conditioned UV-space network that predicts both mesh geometry and Gaussian attributes from multi-view video.</div></div>
+        <div class="contribution-item"><div class="contribution-number">2</div><div class="contribution-text"><strong>Per-pose asset maps</strong> (texture, normal, displacement) extracted from trained Gaussians, combined with a pose-space mixture-of-Gaussians blend for novel-pose synthesis without evaluating the splat representation at run-time.</div></div>
+        <div class="contribution-item"><div class="contribution-number">3</div><div class="contribution-text"><strong>Three rendering modes from one model:</strong> a 3DGS mode at quality close to dedicated splat avatars, a mesh mode for engine-ready assets, and a hybrid mode where Gaussians are rendered while the mesh serves as a physics and shadow proxy.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BIBTEX ==================== -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-2 has-text-centered section-title">BibTeX</h2>
+    <div class="section-divider"></div>
+    <div class="bibtex-wrap">
+      <button class="bib-copy" id="bib-copy" type="button"><span>Copy</span></button>
+      <pre><code id="bibtex-code">@inproceedings{anonymous2027hybridavatar,
+  title     = {HybridAvatar: Photoreal Animatable Humans as Mesh-Native Assets from Multi-View Cameras},
+  author    = {Anonymous},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2027},
+  note      = {Under double-blind review}
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<div id="copy-toast">BibTeX copied to clipboard</div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer" style="padding: 1.5rem;">
+</footer>
+
+<script>
+/* theme toggle */
+(function(){
+  var btn = document.getElementById('theme-toggle');
+  if (btn) {
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    function eff(){ var t = document.documentElement.getAttribute('data-theme'); return t ? t : (mq.matches ? 'dark' : 'light'); }
+    function render(){ btn.innerHTML = (eff()==='dark' ? '&#9728;&#65039;' : '&#127769;'); }
+    btn.addEventListener('click', function(){
+      var next = eff()==='dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      render();
+    });
+    if (mq.addEventListener) mq.addEventListener('change', render);
+    render();
+  }
+})();
+
+/* copy BibTeX */
+(function(){
+  var cbtn = document.getElementById('bib-copy');
+  var code = document.getElementById('bibtex-code');
+  if (!cbtn || !code) return;
+  function done(){
+    var toast = document.getElementById('copy-toast');
+    if (toast){ toast.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(function(){ toast.classList.remove('show'); }, 2000); }
+    var label = cbtn.querySelector('span');
+    cbtn.classList.add('copied'); if (label) label.textContent = 'Copied!';
+    setTimeout(function(){ cbtn.classList.remove('copied'); if (label) label.textContent = 'Copy'; }, 2000);
+  }
+  cbtn.addEventListener('click', function(){
+    var text = code.innerText;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function(){ fallback(text); });
+    } else { fallback(text); }
+    function fallback(t){
+      var ta = document.createElement('textarea');
+      ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch(e) {}
+      document.body.removeChild(ta);
+    }
+  });
+})();
+</script>
+</body>
+</html>
