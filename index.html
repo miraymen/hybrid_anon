@@ -396,7 +396,7 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
       <h2 class="title is-2 has-text-centered section-title">Animatable Mesh Avatars</h2>
       <div class="section-divider"></div>
       <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
-        Our pipeline produces mesh-native assets from multi-view captures. The exported avatar is a standard textured mesh that can be animated with novel poses and loaded into any graphics engine.
+        All results below are rendered in <strong>mesh mode</strong>: the exported avatar is a standard textured mesh with UV-mapped texture, normal, and displacement maps, loaded into a conventional graphics engine.
       </p>
       <div class="scenes-grid" style="grid-template-columns: repeat(3, 1fr);">
         <div class="video-card">
@@ -425,7 +425,7 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
     <h2 class="title is-2 has-text-centered section-title">ActorsHQ Results</h2>
     <div class="section-divider"></div>
     <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
-      Results on ActorsHQ sequences captured with 160 cameras, demonstrating that the pipeline scales to high-camera-count light-stage setups.
+      <strong>Mesh mode</strong> on ActorsHQ sequences (160 cameras), demonstrating that the pipeline scales to high-camera-count light-stage setups.
     </p>
     <div class="scenes-grid" style="grid-template-columns: repeat(3, 1fr);">
       <div class="video-card">
@@ -447,8 +447,39 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
   </div>
 </section>
 
-<!-- ==================== METHOD ==================== -->
+<!-- ==================== 3DGS COMPARISON ==================== -->
 <section class="section hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <h2 class="title is-2 has-text-centered section-title">3DGS Rendering Quality</h2>
+      <div class="section-divider"></div>
+      <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
+        In <strong>3DGS mode</strong>, the same model renders directly as Gaussians. Our rendering quality matches that of dedicated splat-based avatars such as AnimatableGaussians, while additionally producing the mesh asset shown above.
+      </p>
+      <div class="scenes-grid">
+        <div>
+          <div class="video-card" style="border: 2px solid #2ecc71; border-radius: 12px;">
+            <video autoplay controls muted loop playsinline>
+              <source src="./videos/splatcomparison/ours.mp4" type="video/mp4">
+            </video>
+          </div>
+          <p class="has-text-centered" style="font-weight: 700; color: #2ecc71; margin-top: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Ours (3DGS mode)</p>
+        </div>
+        <div>
+          <div class="video-card">
+            <video autoplay controls muted loop playsinline>
+              <source src="./videos/splatcomparison/actor02_punching_pd0.7_splat1.0.mp4" type="video/mp4">
+            </video>
+          </div>
+          <p class="has-text-centered" style="font-weight: 600; color: var(--muted); margin-top: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">AnimatableGaussians</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== METHOD ==================== -->
+<section class="section">
   <div class="hero-body">
     <div class="container is-max-widescreen">
       <h2 class="title is-2 has-text-centered section-title">Method</h2>
@@ -470,7 +501,8 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
 </section>
 
 <!-- ==================== QUALITATIVE COMPARISON ==================== -->
-<section class="section">
+<section class="section hero is-light">
+  <div class="hero-body">
   <div class="container is-max-widescreen">
     <h2 class="title is-2 has-text-centered section-title">Visual Comparison of Mesh Assets</h2>
     <div class="section-divider"></div>
@@ -516,10 +548,11 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
       </div>
     </div>
   </div>
+  </div>
 </section>
 
 <!-- ==================== ABLATION ==================== -->
-<section class="section hero is-light">
+<section class="section">
   <div class="hero-body">
     <div class="container is-max-widescreen">
       <h2 class="title is-2 has-text-centered section-title">Ablation Study</h2>
@@ -554,7 +587,8 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
 </section>
 
 <!-- ==================== BASELINE COMPARISONS (placeholder) ==================== -->
-<section class="section">
+<section class="section hero is-light">
+  <div class="hero-body">
   <div class="container is-max-widescreen">
     <h2 class="title is-2 has-text-centered section-title">Baseline Comparisons</h2>
     <div class="section-divider"></div>
@@ -565,10 +599,11 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
       Videos coming soon.
     </div>
   </div>
+  </div>
 </section>
 
 <!-- ==================== CONTRIBUTIONS ==================== -->
-<section class="section hero is-light">
+<section class="section">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <h2 class="title is-2 has-text-centered section-title">Contributions</h2>
