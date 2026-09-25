@@ -377,7 +377,12 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
       <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
         Our pipeline produces mesh-native assets from multi-view captures. The exported avatar is a standard textured mesh that can be animated with novel poses and loaded into any graphics engine.
       </p>
-      <div class="scenes-grid">
+      <div class="scenes-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="video-card">
+          <video autoplay controls muted loop playsinline>
+            <source src="./videos/avt1.mp4" type="video/mp4">
+          </video>
+        </div>
         <div class="video-card">
           <video autoplay controls muted loop playsinline>
             <source src="./videos/avatrrex.mp4" type="video/mp4">
