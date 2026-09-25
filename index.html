@@ -602,51 +602,51 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
   </div>
 </section>
 
-<!-- ==================== QUALITATIVE COMPARISON ==================== -->
+<!-- ==================== BASELINE COMPARISONS ==================== -->
 <section class="section hero is-light">
   <div class="hero-body">
   <div class="container is-max-widescreen">
-    <h2 class="title is-2 has-text-centered section-title">Visual Comparison of Mesh Assets</h2>
+    <h2 class="title is-2 has-text-centered section-title">Baseline Comparisons</h2>
     <div class="section-divider"></div>
     <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
-      Held-out poses. Our mesh asset preserves pose-dependent wrinkles while AG-Mesh shows seams and blurred texture, and DeMapGS+LBS shows static wrinkles.
+      Side-by-side video comparisons on held-out poses. Our mesh asset preserves pose-dependent wrinkles while AG-Mesh shows seams and blurred texture, and DeMapGS+LBS shows static wrinkles.
     </p>
 
-    <div class="comparison-grid" style="margin-bottom: 1.5rem;">
+    <div class="comparison-grid" style="margin-bottom: 2rem;">
       <div>
-        <div class="img-card"><img src="./images/qual_r1_mesh.png" alt="AG-Mesh"></div>
-        <div class="img-label">AG-Mesh</div>
+        <div class="video-card"><video autoplay controls muted loop playsinline><source src="./videos/baselines/videos/Actor02_1_gt.mp4" type="video/mp4"></video></div>
+        <div class="img-label">GT</div>
       </div>
       <div>
-        <div class="img-card"><img src="./images/qual_r1_demapgs.png" alt="DeMapGS+LBS"></div>
-        <div class="img-label">DeMapGS+LBS</div>
-      </div>
-      <div>
-        <div class="img-card"><img src="./images/qual_r1_ours.png" alt="Ours"></div>
+        <div class="video-card" style="border: 2px solid #2ecc71; border-radius: 12px;"><video autoplay controls muted loop playsinline><source src="./videos/baselines/videos/Actor02_3_ours.mp4" type="video/mp4"></video></div>
         <div class="img-label ours-label">Ours</div>
       </div>
       <div>
-        <div class="img-card"><img src="./images/qual_r1_gt.png" alt="Ground Truth"></div>
-        <div class="img-label">GT</div>
+        <div class="video-card"><video autoplay controls muted loop playsinline><source src="./videos/baselines/videos/Actor02_4_mesh.mp4" type="video/mp4"></video></div>
+        <div class="img-label">AG-Mesh</div>
+      </div>
+      <div>
+        <div class="video-card"><video autoplay controls muted loop playsinline><source src="./videos/baselines/videos/Actor02_2_demapgs.mp4" type="video/mp4"></video></div>
+        <div class="img-label">DeMapGS+LBS</div>
       </div>
     </div>
 
     <div class="comparison-grid">
       <div>
-        <div class="img-card"><img src="./images/qual_r2_mesh.png" alt="AG-Mesh"></div>
-        <div class="img-label">AG-Mesh</div>
+        <div class="video-card"><video autoplay controls muted loop playsinline><source src="./videos/baselines/videos/zzr_1_gt.mp4" type="video/mp4"></video></div>
+        <div class="img-label">GT</div>
       </div>
       <div>
-        <div class="img-card"><img src="./images/qual_r2_demapgs.png" alt="DeMapGS+LBS"></div>
-        <div class="img-label">DeMapGS+LBS</div>
-      </div>
-      <div>
-        <div class="img-card"><img src="./images/qual_r2_ours.png" alt="Ours"></div>
+        <div class="video-card" style="border: 2px solid #2ecc71; border-radius: 12px;"><video autoplay controls muted loop playsinline><source src="./videos/baselines/videos/zzr_3_ours.mp4" type="video/mp4"></video></div>
         <div class="img-label ours-label">Ours</div>
       </div>
       <div>
-        <div class="img-card"><img src="./images/qual_r2_gt.png" alt="Ground Truth"></div>
-        <div class="img-label">GT</div>
+        <div class="video-card"><video autoplay controls muted loop playsinline><source src="./videos/baselines/videos/zzr_4_mesh.mp4" type="video/mp4"></video></div>
+        <div class="img-label">AG-Mesh</div>
+      </div>
+      <div>
+        <div class="video-card"><video autoplay controls muted loop playsinline><source src="./videos/baselines/videos/zzr_2_demapgs.mp4" type="video/mp4"></video></div>
+        <div class="img-label">DeMapGS+LBS</div>
       </div>
     </div>
   </div>
@@ -688,21 +688,6 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
   </div>
 </section>
 
-<!-- ==================== BASELINE COMPARISONS (placeholder) ==================== -->
-<section class="section hero is-light">
-  <div class="hero-body">
-  <div class="container is-max-widescreen">
-    <h2 class="title is-2 has-text-centered section-title">Baseline Comparisons</h2>
-    <div class="section-divider"></div>
-    <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
-      Side-by-side video comparisons with AnimatableGaussians, AG-Mesh, and DeMapGS+LBS on novel poses.
-    </p>
-    <div class="placeholder-notice">
-      Videos coming soon.
-    </div>
-  </div>
-  </div>
-</section>
 
 <!-- ==================== CONTRIBUTIONS ==================== -->
 <section class="section">
