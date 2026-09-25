@@ -349,15 +349,20 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
     <p class="has-text-centered" style="color: #e8590c; font-size: 1.3rem; font-weight: 600; margin-bottom: 1.5rem;">
       One trained model, three rendering modes: 3DGS, mesh asset, and hybrid with physics and shadows.
     </p>
-    <div class="scenes-grid">
+    <div class="scenes-grid" style="grid-template-columns: repeat(3, 1fr);">
       <div class="video-card">
         <video autoplay controls muted loop playsinline>
           <source src="./videos/shadow.mp4" type="video/mp4">
         </video>
       </div>
-      <div class="video-card" id="teaser-ball-placeholder">
+      <div class="video-card">
         <video autoplay controls muted loop playsinline>
-          <source src="./videos/ball.mp4" type="video/mp4">
+          <source src="./videos/static_a07_ball.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-card">
+        <video autoplay controls muted loop playsinline>
+          <source src="./videos/relight.mp4" type="video/mp4">
         </video>
       </div>
     </div>
@@ -407,48 +412,7 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
   </div>
 </section>
 
-<!-- ==================== RELIGHTING ==================== -->
-<section class="section">
-  <div class="container is-max-widescreen">
-    <h2 class="title is-2 has-text-centered section-title">Relighting and Shadows</h2>
-    <div class="section-divider"></div>
-    <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
-      Because the asset is an ordinary textured mesh, it receives scene lighting and casts dynamic shadows in a path-traced environment, something that 3DGS avatars cannot do.
-    </p>
-    <div class="video-card" style="max-width: 960px; margin: 0 auto;">
-      <video autoplay controls muted loop playsinline>
-        <source src="./videos/relight.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== SHADOW / PHYSICS (placeholder) ==================== -->
-<section class="section hero is-light">
-  <div class="hero-body">
-    <div class="container is-max-widescreen">
-      <h2 class="title is-2 has-text-centered section-title">Physics and Contact</h2>
-      <div class="section-divider"></div>
-      <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
-        In hybrid mode, the mesh acts as a physics proxy while the avatar is rendered with Gaussians. The avatar casts shadows, deflects objects on contact, and receives scene lighting.
-      </p>
-      <div class="scenes-grid">
-        <div class="video-card">
-          <video autoplay controls muted loop playsinline>
-            <source src="./videos/shadow.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="video-card">
-          <video autoplay controls muted loop playsinline>
-            <source src="./videos/ball.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== ActorsHQ (placeholder) ==================== -->
+<!-- ==================== ActorsHQ ==================== -->
 <section class="section">
   <div class="container is-max-widescreen">
     <h2 class="title is-2 has-text-centered section-title">ActorsHQ Results</h2>
