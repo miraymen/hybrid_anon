@@ -349,8 +349,17 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
     <p class="has-text-centered" style="color: #e8590c; font-size: 1.3rem; font-weight: 600; margin-bottom: 1.5rem;">
       One trained model, three rendering modes: 3DGS, mesh asset, and hybrid with physics and shadows.
     </p>
-    <div class="teaser-wrapper">
-      <img src="./images/teaser.jpg" alt="HybridAvatar teaser: mesh-native avatar with physics, shadows, and relighting">
+    <div class="scenes-grid">
+      <div class="video-card">
+        <video autoplay controls muted loop playsinline>
+          <source src="./videos/shadow.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-card" id="teaser-ball-placeholder">
+        <video autoplay controls muted loop playsinline>
+          <source src="./videos/ball.mp4" type="video/mp4">
+        </video>
+      </div>
     </div>
   </div>
 </section>
@@ -423,8 +432,17 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
       <p class="has-text-centered" style="color: #666; margin-bottom: 2rem;">
         In hybrid mode, the mesh acts as a physics proxy while the avatar is rendered with Gaussians. The avatar casts shadows, deflects objects on contact, and receives scene lighting.
       </p>
-      <div class="placeholder-notice">
-        Videos coming soon.
+      <div class="scenes-grid">
+        <div class="video-card">
+          <video autoplay controls muted loop playsinline>
+            <source src="./videos/shadow.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-card">
+          <video autoplay controls muted loop playsinline>
+            <source src="./videos/ball.mp4" type="video/mp4">
+          </video>
+        </div>
       </div>
     </div>
   </div>
