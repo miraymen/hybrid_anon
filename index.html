@@ -534,7 +534,7 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
     <div class="section-divider"></div>
     <div class="content has-text-justified abstract-text">
       <p>
-        Animatable human avatars are central to games, virtual production, telepresence, and AR/VR, and the dominant production format for these settings is a posed mesh with UV-mapped texture, normal, and displacement maps. Mesh-based avatars enjoy decades of engine support: physics, shadows and relighting all assume mesh geometry. Recent 3D Gaussian Splatting (3DGS) avatars deliver markedly higher rendering quality and can be reconstructed from multi-view captures with as few as 10&ndash;16 cameras, but their splat representation is incompatible with conventional graphics engines. We present a hybrid pipeline that bridges these two regimes. We train a pose-conditioned avatar with mesh-anchored Gaussian splatting from multi-view video, then, for every training pose, extract three asset maps (texture, normal, displacement) using a UV-space rasterization of the trained Gaussians. At inference time, geometry for a novel pose is produced by the trained network as a posed mesh, while appearance is produced by a pose-space mixture-of-Gaussians blend over the per-pose asset maps. The final output is a textured mesh asset that can be loaded directly into any engine and benefits from physics, dynamic shadows, and relighting, while being comparable in rendering quality to 3DGS avatars. The same model can also be rendered directly as Gaussians, and in a <em>hybrid mode</em>, it is rendered with Gaussians while its mesh, which shares their geometry, serves as a physics and shadow proxy. We evaluate the pipeline on multi-view human captures and show that it produces engine-ready assets whose photometric quality exceeds that of meshes extracted from 3DGS avatars and approaches that of direct renderings of animatable 3DGS avatars.
+        Mesh-based avatars have enjoyed decades of graphics engine support: physics, shadows, and relighting all assume mesh geometry. Recent 3D Gaussian Splatting (3DGS) avatars deliver higher rendering quality and can be reconstructed from multi-view captures with as few as 10&ndash;16 cameras, but their splat representation is incompatible with conventional graphics engines. We present a hybrid pipeline that bridges these two regimes. We train a pose-conditioned avatar with mesh-anchored Gaussian Splatting from multi-view video, then, for every training pose, extract three asset maps (texture, normal, displacement) with a UV-space rasterizer applied to the trained Gaussians. At inference time, geometry for a novel pose is produced by the trained network as a posed mesh, while appearance is produced by a pose-space mixture-of-Gaussians blend over the per-pose asset maps. The output is a textured mesh asset that can be loaded directly into any engine, supports physics and dynamic shadows, and responds to scene lighting, while approaching the rendering quality of 3DGS avatars. The same model can also be rendered directly as Gaussians at quality comparable to 3DGS avatars. In a <em>hybrid mode</em> it is rendered with Gaussians while its mesh, which shares their geometry, serves as a physics and shadow proxy. We evaluate the pipeline on multi-view human captures and show that it produces engine-ready assets whose photometric quality exceeds that of meshes extracted from 3DGS avatars and approaches that of direct renderings of animatable 3DGS avatars.
       </p>
     </div>
   </div>
@@ -629,7 +629,7 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
       <!-- Quantitative comparison table -->
       <div style="margin-top: 2.5rem;">
         <h3 class="title is-4 has-text-centered" style="margin-bottom: 0.5rem;">Quantitative Comparison</h3>
-        <p class="has-text-centered" style="color: var(--muted); font-size: 0.85rem; margin-bottom: 1rem;">Novel-view synthesis on held-out cameras. Our 3DGS mode is within 0.5 dB of a dedicated splat avatar.</p>
+        <p class="has-text-centered" style="color: var(--muted); font-size: 0.85rem; margin-bottom: 1rem;">Novel-view synthesis on held-out poses. Our 3DGS mode is within 0.5 dB of a dedicated splat avatar.</p>
         <table class="results-table">
           <thead>
             <tr>
@@ -768,7 +768,7 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
             <th style="text-align: left;">Method</th>
             <th colspan="3">ActorsHQ</th>
             <th colspan="3">AvatarReX</th>
-            <th colspan="3" style="font-size: 0.72rem;">Asset Properties</th>
+            <th colspan="2" style="font-size: 0.72rem;">Asset</th>
           </tr>
           <tr>
             <th></th>
@@ -778,7 +778,6 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
             <th>PSNR &uarr;</th>
             <th>SSIM &uarr;</th>
             <th>LPIPS &darr;</th>
-            <th style="font-size: 0.72rem;">Anim.</th>
             <th style="font-size: 0.72rem;">Topo.</th>
             <th style="font-size: 0.72rem;">UV</th>
           </tr>
@@ -786,15 +785,14 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
         <tbody>
           <tr>
             <td class="method-name">AG-Mesh</td>
-            <td>24.50</td>
-            <td>0.918</td>
-            <td>0.078</td>
-            <td>26.06</td>
-            <td>0.965</td>
-            <td>0.056</td>
-            <td>&check;</td>
-            <td>&cross;</td>
-            <td>&cross;</td>
+            <td class="cell-second">24.50</td>
+            <td class="cell-second">0.918</td>
+            <td class="cell-second">0.078</td>
+            <td class="cell-second">26.06</td>
+            <td class="cell-second">0.965</td>
+            <td class="cell-second">0.056</td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
           </tr>
           <tr>
             <td class="method-name">DeMapGS+LBS</td>
@@ -804,9 +802,8 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
             <td>21.66</td>
             <td>0.947</td>
             <td>0.099</td>
-            <td>&check;</td>
-            <td>&check;</td>
-            <td>&check;</td>
+            <td>&bull;</td>
+            <td>&bull;</td>
           </tr>
           <tr>
             <td class="method-name" style="color: #2ecc71; font-weight: 700;">Ours (mesh mode)</td>
@@ -816,9 +813,8 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
             <td class="cell-best">27.24</td>
             <td class="cell-best">0.969</td>
             <td class="cell-best">0.053</td>
-            <td>&check;</td>
-            <td>&check;</td>
-            <td>&check;</td>
+            <td>&bull;</td>
+            <td>&bull;</td>
           </tr>
         </tbody>
       </table>
