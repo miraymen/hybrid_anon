@@ -702,9 +702,9 @@ html[data-theme="dark"] #copy-toast { background: #f1f1f1; color: #1a1a1a; }
       <h2 class="title is-2 has-text-centered section-title">Contributions</h2>
       <div class="section-divider"></div>
       <div class="contributions-list">
-        <div class="contribution-item"><div class="contribution-number">1</div><div class="contribution-text"><strong>Mesh-anchored Gaussian avatar</strong> trained with a pose-conditioned UV-space network that predicts both mesh geometry and Gaussian attributes from multi-view video.</div></div>
-        <div class="contribution-item"><div class="contribution-number">2</div><div class="contribution-text"><strong>Per-pose asset maps</strong> (texture, normal, displacement) extracted from trained Gaussians, combined with a pose-space mixture-of-Gaussians blend for novel-pose synthesis without evaluating the splat representation at run-time.</div></div>
-        <div class="contribution-item"><div class="contribution-number">3</div><div class="contribution-text"><strong>Three rendering modes from one model:</strong> a 3DGS mode at quality close to dedicated splat avatars, a mesh mode for engine-ready assets, and a hybrid mode where Gaussians are rendered while the mesh serves as a physics and shadow proxy.</div></div>
+        <div class="contribution-item"><div class="contribution-number">1</div><div class="contribution-text"><strong>Pose-conditioned UV-space network</strong> that predicts both the posed mesh geometry and the mesh-anchored Gaussians attached to it, which together form a <em>HybridAvatar</em>.</div></div>
+        <div class="contribution-item"><div class="contribution-number">2</div><div class="contribution-text"><strong>Per-pose asset maps:</strong> texture, normal, and displacement maps extracted from the trained Gaussians for every training pose, and a pose-space blend that combines them into the maps of a novel pose. The result is a standard textured mesh, produced at interactive rates, which any conventional engine can load with no Gaussian rendering at run-time.</div></div>
+        <div class="contribution-item"><div class="contribution-number">3</div><div class="contribution-text"><strong>Three rendering modes from one trained model:</strong> a 3DGS mode at quality comparable to dedicated splat-based avatars, a mesh mode for engine-ready assets, and a hybrid mode in which the Gaussians are rendered while the mesh, which shares their geometry, serves as a physics and shadow proxy.</div></div>
       </div>
     </div>
   </div>
